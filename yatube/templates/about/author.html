@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <h1>Пост про автора сайта</h1>
+      <article class="blog-post">
+        <h1><i>Привет, я автор </i>{% include 'animations/emoji_upside_down.html' %}</h1>
+        <p>
+          <hr>
+            Я гуманитарий с "ног до головы":<br>
+            - юрист и этой зимой получу специальность экономиста
+            <span style="color:violet">
+                <i> ну это я так планирую.</i>
+            </span><br>
+            Но только при занятии бекэнд-разработкой<br>
+            я почувствовала тот самый важный интерес от того, что я делаю.<br>
+            По пути, я конечно еще почувствовала
+            <span style="color:violet">
+                <i> и периодически чувствую </i> 
+            </span> безвозвратную потерю самооценки,<br>
+            Но насколько потом,
+            <span style="color:violet">
+                <i> когда что-то начинает работать,</i>
+            </span> возникает неповторимое чувство радости!<br>
+            <strong>Это чувство стоит всех препятствий<br>
+                и перемен в жизни!
+            </strong>
+          <hr>
+        </p>
+        <p>
+          Ну и конечно во время учебы меня часто атакует кот!
+            <article class="col-12 col-md-9">
+              <img width="200" height="130" class="d-inline-block align-top" src="{% static "img/Angry_cat.jpg" %}">
+            </article>
+        </p>
+      <div class="row mb-2">
+        {% include 'includes/forlogin.html' %}
+        {% include 'includes/formain.html' %}
+      </div>
+    {% include 'includes/forcontact.html' with cat=True %}
+  </div>
+{% endblock %}

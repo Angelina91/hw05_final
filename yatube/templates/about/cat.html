@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Cat can help{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <h1>Cat can help</h1>
+    <article class="blog-post">
+      <h2 class="blog-post-title mb-1">Пост про моего кота</h2>
+      <p>Назвали в честь пироженки
+        <span style="color:violet">
+          <strong> Ну а как же еще назвать такую плюху!?</strong>
+        </span>
+      </p>
+      <img width="200" height="200" class="d-inline-block align-top" src="{% static "img/my_cat.jpg" %}">
+      <p class="blog-post-meta">Барни, <span style="color:violet"><i>а иногда "пушистый негодяй"</i></span></p>
+      <p>У кота достаточно большой функционал:</p>
+      <ul>
+        <li>Не дает есть за рабочим столом,
+          <span style="color:violet">
+            <i>иначе пытается съесть это сам</i>
+          </span>
+        </li>
+        <li>Вытирает пыль с ноутбука 
+          <span style="color:violet">
+            <i>пушистым собой</i>
+          </span>
+        </li>
+        <li>Стимулирует постоянно учиться 
+          <span style="color:violet">
+            <i>иначе смотрит на меня, как на невкусный, но полезный корм</i>
+          </span>
+        </li>
+      </ul>
+      <p>Он еще много чего умеет:</p>
+      <ul>
+        <li>Мяукать, когда я чихаю
+          <span style="color:violet">
+            <i> оказалось, что это он так бесится, а не пожелание быть здоровой</i>
+          </span>
+        </li>
+        <li>Прыгать по стенам 
+          <span style="color:violet">
+            <i>это смесь Киану Ривза и горцующего пони</i>
+          </span>
+        </li>
+        <li>Полировать ноутбук 
+          <span style="color:violet">
+            <i>потому что коту удобно об него чесаться</i>
+          </span>
+        </li>
+      </ul>
+    </article>
+  </div>
+  <div class="row mb-2">
+    {% include 'includes/forlogin.html' %}
+    {% include 'includes/formain.html' %}
+  </div>
+  {% include 'includes/forcontact.html' with tech=True %}
+{% endblock %}

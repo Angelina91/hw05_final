@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Записи сообщества{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <h1>{{ group.title }}</h1>
+    <p>{{ group.title }}</p>
+    <p>{{ group.description }} </p>
+    <article>
+      {% for post in page_obj %}
+        {% include 'includes/forter.html' with index=False %}
+      {% endfor %}
+      {% include 'includes/paginator.html' %}
+    </article>
+  </div>
+{% endblock %}
+{% block footer %}
+  {% include 'includes/footer.html' %}   
+{% endblock %}

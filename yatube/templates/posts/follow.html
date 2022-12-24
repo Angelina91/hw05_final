@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block title %}
+  Записи любимых авторов
+{% endblock %}
+{% block content %}
+{% comment %} {% include 'posts/includes/switcher.html' %} {% endcomment %}
+  <h1>
+    Записи любимых авторов
+  </h1> 
+  {% for post in page_obj  %}
+    {% comment %}{% include 'posts/includes/post_list.html' %}{% endcomment %}
+    {% if post.group %}   
+      <div class="group-link">Группа: <a href="{% url 'posts:group_list' post.group.slug %}">{{ post.group.title }}</a></div>
+    {% endif %}
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %} 
+
+  {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
+
+
+{% endblock %} 

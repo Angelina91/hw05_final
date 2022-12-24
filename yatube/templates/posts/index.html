@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load cache %}
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    {% include 'includes/switcher.html' %}
+    <h1>Последние обновления на сайте</h1>
+    <article>
+      {% cache 20 index_page with page_obj %}
+      {% for post in page_obj %}
+        {% include 'includes/forter.html' with index=True %}
+      {% endfor %}
+      {% endcache %}
+      {% include 'includes/paginator.html' %}
+    </article>
+  </div>
+{% endblock %}
+ 

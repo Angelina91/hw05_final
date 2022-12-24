@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+  <div class="row">
+    <h1>Вот что я умею</h1>
+    <aside class="col-12 col-md-3">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Python
+        </li>
+        <li class="list-group-item">
+          Django
+        </li>
+      </ul>
+    </aside>
+    <article class="col-12 col-md-9">
+      <p>
+        Мне пока что страшно думать, что я что-то уже умею,<br>
+        потому что, обычно после такой мысли<br>
+        у меня появляется какая-нибудь ошибка<br>
+        с устойчивым эффектом анти-самооценки.<br>
+        Поэтому, пока просто стараюсь все понять,<br>
+        а также выровняться по учебному темпу.
+      </p>
+      <hr>
+      <p>
+        <i>
+          Псс...По секрету:<br>
+          Осваиваю VSC, документации (документация Python особенно ужасна)<br>
+          Конечно спасает 'погуглить',<br>
+          хотя в моем случае - это 'яндексовать'.
+        </i>
+      </p>
+      <hr>
+      <p>
+        <i>
+          <span style="color:violet">
+            <strong>
+              Ну<br>
+              может,<br>
+              пара<br>
+              способностей<br>
+              все-таки<br>
+              найдется:
+            </strong>
+          </span>
+        </i>
+      </p>
+      <p>
+        <img width="300" height="360" class="d-inline-block align-top" src="{% static "img/my_skills.jpg" %}">
+      </p>  
+    </article>
+      <div class="row mb-2">
+        {% include 'includes/forlogin.html' %}
+        {% include 'includes/formain.html' %}
+      </div>
+      {% include 'includes/forcontact.html' with author=True %}
+  </div>
+{% endblock %}

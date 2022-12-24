@@ -1,0 +1,25 @@
+<div class="col-md-4">
+  <div class="position-sticky" style="top: 2rem;">
+    <div class="p-4">
+      <h4 class="fst-italic">Ну и еще немного:</h4>
+      <ol class="list-unstyled">
+        <li><a href='https://github.com/Angelina91'>Мой профиль в GitHub</a></li>
+        {% if tech %}
+          <li>
+            <a href="{% url 'about:tech' %}">Все, что я умею, кроме как гладить кота</a>
+          </li>
+        {% endif %}
+        {% if author %}
+          <li>
+            <a href="{% url 'about:author' %}">Страница про меня</a>
+          </li>
+        {% endif %}
+        {% if cat %}
+          <li>
+            <a href="{% url 'about:cat' %}">Куда же без котиков?</a>
+          </li>
+        {% endif %}
+      </ol>
+    </div>
+  </div>
+</div>
