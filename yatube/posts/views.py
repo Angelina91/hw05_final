@@ -13,8 +13,8 @@ from .models import Comment, Follow, Group, Post, User
 def _page_obj(request, mod_obj):
     paginator = Paginator(mod_obj, settings.COUNT_POSTS_ON_PAGE)
     page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return page_obj
+    # page_obj = paginator.get_page(page_number)
+    return paginator.get_page(page_number)
 
 
 @cache_page(60 * 20)
@@ -45,7 +45,10 @@ def profile(request, username):
     page_obj = _page_obj(request, posts)
     following = False
     if request.user.is_authenticated:
-        following = Follow.objects.filter(user=request.user, author=author).exists()
+        following = Follow.objects.filter(
+            user=request.user,
+            author=author,
+        ).exists()
     context = {
         "post_count": post_count,
         "author": author,
@@ -94,7 +97,11 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if post.author != request.user:
         return redirect("posts:post_detail", post_id=post_id)
-    form = PostForm(request.POST or None, files=request.FILES or None, instance=post)
+    form = PostForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=post,
+    )
     template_name = "posts/create_post.html"
     if form.is_valid():
         request.user != post.author
@@ -135,7 +142,10 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     if (
         author != request.user
-        and not Follow.objects.filter(user=request.user, author=author).exists()
+        and not Follow.objects.filter(
+            user=request.user,
+            author=author
+        ).exists()
     ):
         Follow.objects.create(user=request.user, author=author)
     return redirect("posts:profile", username)

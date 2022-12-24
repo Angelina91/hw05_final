@@ -38,7 +38,9 @@ class PostFormTests(TestCase):
             b"\x0A\x00\x3B"
         )
         cls.upload_2 = SimpleUploadedFile(
-            name="small.gif_2", content=cls.small_gif_2, content_type="image/gif_2"
+            name="small.gif_2",
+            content=cls.small_gif_2,
+            content_type="image/gif_2",
         )
 
     def setUp(self):
@@ -57,10 +59,15 @@ class PostFormTests(TestCase):
             "image": self.upload,
         }
         response = self.authorized_client.post(
-            reverse("posts:create_post"), data=form_data, follow=True
+            reverse("posts:create_post"),
+            data=form_data,
+            follow=True,
         )
         self.assertRedirects(
-            response, reverse("posts:profile", kwargs={"username": self.user.username})
+            response, reverse(
+                "posts:profile",
+                kwargs={"username": self.user.username},
+            )
         )
         self.assertEqual(Post.objects.count(), posts_count + 1)
         self.assertEqual(
@@ -79,15 +86,20 @@ class PostFormTests(TestCase):
         group_2 = Group.objects.create(
             title="Тестовая группа_2",
             slug="test_slug_2",
-            description="Тестовое описание_2",
+            description="Тестовое описание_2"
         )
         post = Post.objects.create(
-            author=self.user, text="Тестовый пост", group=self.group, image=self.upload
+            author=self.user,
+            text="Тестовый пост",
+            group=self.group,
+            image=self.upload,
         )
         url = reverse("posts:post_edit", kwargs={"post_id": post.id})
-        self.response = self.authorized_client.post(
-            url,
-            {"text": "Обновленный пост", "group": group_2.id, "image": self.upload_2},
+        self.response = self.authorized_client.post(url, {
+            "text": "Обновленный пост",
+            "group": group_2.id,
+            "image": self.upload_2,
+        },
         )
         post.refresh_from_db()
         self.assertEqual(post.text, "Обновленный пост")

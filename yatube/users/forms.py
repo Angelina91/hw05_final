@@ -21,5 +21,5 @@ class ContactForm(forms.Form):
     def clean_subject(self):
         data = self.cleaned_data["subject"]
         if "спасибо" not in data.lower():
-            raise forms.ValidationError("Вы обязательно должны нас поблагодарить!")
+            raise forms.ValidationError("Будем рады благодарности!")
         return data

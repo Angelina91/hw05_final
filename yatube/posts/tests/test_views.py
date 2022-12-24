@@ -64,7 +64,7 @@ class PostViewsTests(TestCase):
         for path, name in templates_pages_names.items():
             with self.subTest(name=name):
                 response = self.authorized_client.get(path)
-                error_name = f"Ошибка в шаблоне: по {path} ожидался шаблон {name}"
+                error_name = f"Ошибка: по {path} ожидался шаблон {name}"
                 self.assertTemplateUsed(response, name, error_name)
 
     def test_page_index_uses_correct_context(self):
@@ -166,7 +166,11 @@ class PostViewsTests(TestCase):
         profile = response_profile.context["page_obj"]
         self.assertIn(self.post, index, "Пост на главную страницу не добавлен")
         self.assertIn(self.post, group, "На странице group_list поста нет")
-        self.assertIn(self.post, profile, "На страницу пользователя пост не добавлен")
+        self.assertIn(
+            self.post,
+            profile,
+            "На страницу пользователя пост не добавлен"
+        )
 
     def test_post_not_in_another_groups(self):
         """Пост не добавляется в другую группу, к другому пользователю"""
@@ -260,9 +264,13 @@ class PostViewsTests(TestCase):
             Follow(user=new_user, author=self.new_author),
         ]
         Follow.objects.bulk_create(obj)
-        response_first = self.authorized_client.get(reverse("posts:follow_index"))
+        response_first = self.authorized_client.get(
+            reverse("posts:follow_index")
+        )
         count_for_first_user = len(response_first.context["page_obj"])
-        response_second = new_user_client.get(reverse("posts:follow_index"))
+        response_second = new_user_client.get(
+            reverse("posts:follow_index")
+        )
         count_for_second_user = len(response_second.context["page_obj"])
         self.assertNotEqual(count_for_first_user, count_for_second_user)
 
@@ -278,7 +286,9 @@ class PaginatorViewsTest(TestCase):
         cls.authorized_client = Client()
         cls.authorized_client.force_login(PaginatorViewsTest.author)
         cls.group = Group.objects.create(
-            title="test_title", slug="test_slug", description="test_description"
+            title="test_title",
+            slug="test_slug",
+            description="test_description",
         )
 
     def test_paginator_count_posts(self):
@@ -306,5 +316,10 @@ class PaginatorViewsTest(TestCase):
                 for page, number in object_list:
                     with self.subTest():
                         reverse_name = reverse(reverse_value, args=args)
-                        response = self.authorized_client.get(reverse_name + page)
-                        self.assertEqual(len(response.context["page_obj"]), number)
+                        response = self.authorized_client.get(
+                            reverse_name + page
+                        )
+                        self.assertEqual(len(
+                            response.context["page_obj"]),
+                            number,
+                        )

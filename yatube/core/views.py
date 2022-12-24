@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 from django.shortcuts import render
 
 

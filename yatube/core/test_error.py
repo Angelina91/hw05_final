@@ -9,7 +9,9 @@ class ViewTestClass(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
         self.assertTemplateUsed(response, "core/404.html")
 
-    # def test_error_csrf_failure_403(self):# хотела протестировать и другие страницы ошибок, но возникла с поиском адреса
-    #     response = self.client.get('/permission_denied/')# не могу найти адрес
+    # def test_error_csrf_failure_403(self):# хотела протестировать
+    #                             и другие
+    #                             страницы ошибок, но возникла с поиском адреса
+    #     response = self.client.get('/permission_denied/')#не могу найти адрес
     #     self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
     #     self.assertTemplateUsed(response, 'core/403crf.html')
