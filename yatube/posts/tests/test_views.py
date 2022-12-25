@@ -153,7 +153,7 @@ class PostViewsTests(TestCase):
                 self.assertIsInstance(form_field, expected)
 
     def test_exists_on_index_group_list_profile(self):
-        """При создании и заполнении группы тест добавлен корректно"""
+        """При создании и заполнении группы текст добавлен корректно"""
         response_index = self.authorized_client.get(reverse("posts:index"))
         response_group = self.authorized_client.get(
             reverse("posts:group_list", kwargs={"slug": self.group.slug})
@@ -169,7 +169,7 @@ class PostViewsTests(TestCase):
         self.assertIn(
             self.post,
             profile,
-            "На страницу пользователя пост не добавлен"
+            "На страницу пользователя пост не добавлен",
         )
 
     def test_post_not_in_another_groups(self):

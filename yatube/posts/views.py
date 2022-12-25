@@ -13,18 +13,17 @@ from .models import Comment, Follow, Group, Post, User
 def _page_obj(request, mod_obj):
     paginator = Paginator(mod_obj, settings.COUNT_POSTS_ON_PAGE)
     page_number = request.GET.get("page")
-    # page_obj = paginator.get_page(page_number)
     return paginator.get_page(page_number)
 
 
-@cache_page(60 * 20)
 def index(request):
     posts = Post.objects.all()
     page_obj = _page_obj(request, posts)
     context = {
         "page_obj": page_obj,
     }
-    return render(request, "posts/index.html", context)
+    template = "posts/index.html"
+    return render(request, template, context)
 
 
 def group_posts(request, slug):
@@ -35,7 +34,8 @@ def group_posts(request, slug):
         "group": group,
         "page_obj": page_obj,
     }
-    return render(request, "posts/group_list.html", context)
+    template = "posts/group_list.html"
+    return render(request, template, context)
 
 
 def profile(request, username):
@@ -55,7 +55,8 @@ def profile(request, username):
         "page_obj": page_obj,
         "following": following,
     }
-    return render(request, "posts/profile.html", context)
+    template = "posts/profile.html"
+    return render(request, template, context)
 
 
 def post_detail(request, post_id):
@@ -69,7 +70,8 @@ def post_detail(request, post_id):
         "form": form,
         "comments": comment,
     }
-    return render(request, "posts/post_detail.html", context)
+    template = "posts/post_detail.html"
+    return render(request, template, context)
 
 
 @login_required
