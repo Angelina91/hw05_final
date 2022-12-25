@@ -97,38 +97,6 @@ class PostFormTests(TestCase):
             ).exists()
         )
 
-
-        # posts_count = Post.objects.count()
-        # posts_count_in_group = Post.objects.filter(group=self.group).count()
-        # form_data = {
-        #     "text": "Тестовая запись из теста",
-        #     "author": self.user,
-        #     "group": self.group.pk,
-        #     "image": self.upload,
-        # }
-        # response = self.authorized_client.post(
-        #     reverse("posts:create_post"),
-        #     data=form_data,
-        #     follow=True,
-        # )
-        # self.assertRedirects(
-        #     response, reverse(
-        #         "posts:profile",
-        #         kwargs={"username": self.user.username},
-        #     )
-        # )
-        # self.assertEqual(Post.objects.count(), posts_count + 1)
-        # self.assertEqual(
-        #     Post.objects.filter(group=self.group).count(),
-        #     posts_count_in_group + 1,
-        #     self.group,
-        # )
-        # self.assertTrue(
-        #     Post.objects.filter(
-        #         text="Тестовая запись", author=self.user, group=self.group
-        #     ).exists()
-        # )
-
     def test_edit_post(self):
         """Проверка сохранения изменного поста в БД с post_edit"""
         group_2 = Group.objects.create(
