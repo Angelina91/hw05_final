@@ -78,7 +78,7 @@ class Comment(models.Model):
     )
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ("-created",)
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"
 
@@ -105,10 +105,11 @@ class Follow(models.Model):
     )
 
     class Meta:
-        ordering = ["-pub_date"]
+        ordering = ("-pub_date",)
         verbose_name = "Подписаться на автора"
         verbose_name_plural = "Подписки"
         models.UniqueConstraint(fields=["user", "author"], name="following")
 
     def __str__(self):
-        return f"Подписка {self.user} на {self.author}"
+        return (f"Подписка {self.user.get_username}; "
+                f"на {self.author.get_username}.")

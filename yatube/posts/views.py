@@ -16,7 +16,10 @@ def _page_obj(request, mod_obj):
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.select_related(
+        "group",
+        "author",
+    ).all()
     page_obj = _page_obj(request, posts)
     context = {
         "page_obj": page_obj,
@@ -43,11 +46,10 @@ def profile(request, username):
     post_count = posts.count()
     page_obj = _page_obj(request, posts)
     following = False
-    if request.user.is_authenticated:
-        following = Follow.objects.filter(
-            user=request.user,
-            author=author,
-        ).exists()
+    following = Follow.objects.filter(
+        user=request.user.is_authenticated,
+        author=author,
+    ).exists()
     context = {
         "post_count": post_count,
         "author": author,
@@ -105,7 +107,6 @@ def post_edit(request, post_id):
     )
     template_name = "posts/create_post.html"
     if form.is_valid():
-        request.user != post.author
         post.save()
         return redirect("posts:post_detail", post_id)
     context = {

@@ -17,33 +17,6 @@ class PostFormTests(TestCase):
             slug="test_slug",
             description="Тестовое описание",
         )
-        # cls.imagine_gif = (# пояснение, почему это условие тут
-        #     b"\x47\x49\x46\x38\x39\x61\x02\x00"# и закомичено,
-        #     b"\x01\x00\x80\x00\x00\x00\x00\x00"# см. в
-        #     b"\xFF\xFF\xFF\x21\xF9\x04\x00\x00"# test_edit_post
-        #     b"\x00\x00\x00\x2C\x00\x00\x00\x00"
-        #     b"\x02\x00\x01\x00\x00\x02\x02\x0C"
-        #     b"\x0A\x00\x3B"
-        # )
-        # cls.upload = SimpleUploadedFile(
-        #     name="imagine.gif",
-        #     content=cls.imagine_gif,
-        #     content_type="image/gif",
-        # )
-
-        # cls.imagine_gif_2 = (
-        #     b"\x47\x49\x46\x38\x39\x61\x02\x00"
-        #     b"\x01\x00\x80\x00\x00\x00\x00\x00"
-        #     b"\xFF\xFF\xFF\x21\xF9\x04\x00\x00"
-        #     b"\x00\x00\x00\x2C\x00\x00\x00\x00"
-        #     b"\x02\x00\x01\x00\x00\x02\x02\x0C"
-        #     b"\x0A\x00\x3B"
-        # )
-        # cls.upload_2 = SimpleUploadedFile(
-        #     name="imagine.gif_2",
-        #     content=cls.imagine_gif_2,
-        #     content_type="image/gif_2",
-        # )
 
     def setUp(self):
         """Создаем авторизованного клиента"""
@@ -108,21 +81,13 @@ class PostFormTests(TestCase):
             author=self.user,
             text="Тестовый пост",
             group=self.group,
-            # image=self.upload,# в задании не было сказано про
-            # проверку картинок при редактировании поста, но
-            # добавить сюда - боло бы логичным
-            # но почему-то тест не срабатывает, если по
-            # логике в данной проверки также добавить условие
-            #  про наличие картинок
         )
         url = reverse("posts:post_edit", kwargs={"post_id": post.id})
         self.response = self.authorized_client.post(url, {
             "text": "Обновленный пост",
             "group": group_2.id,
-            # "image": self.upload_2,
         },
         )
         post.refresh_from_db()
         self.assertEqual(post.text, "Обновленный пост")
         self.assertEqual(post.group.id, group_2.id)
-        # self.assertEqual(post.image, f"posts/{self.upload_2.name}")

@@ -120,3 +120,4 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 COUNT_POSTS_ON_PAGE = 10
+EMPTY_VALUE = "-пусто-"

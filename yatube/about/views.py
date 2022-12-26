@@ -11,6 +11,3 @@ class AboutTechView(TemplateView):
 
 class AboutCatView(TemplateView):
     template_name = "about/cat.html"
-
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
